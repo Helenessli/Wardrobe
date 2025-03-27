@@ -1,0 +1,20 @@
+<div class="outfit-details">
+  <h1>Outfit: <%= @outfit.theme %></h1>
+  
+  <div class="images-container">
+    <% if @outfit.images.attached? %>
+      <% @outfit.images.each do |image| %>
+        <%= image_tag image %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div class="actions">
+    <%= link_to "Back to all outfits", outfits_path, class: "back-button" %>
+    <%= button_to "Delete Outfit", 
+                  outfit_path(@outfit), 
+                  method: :delete,
+                  class: "delete-button",
+                  data: { confirm: "Are you sure you want to delete this outfit?" } %>
+  </div>
+</div>

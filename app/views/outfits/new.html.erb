@@ -1,0 +1,24 @@
+<h1>Add New Outfit</h1>
+
+<%= form_with(model: @outfit, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :theme %>
+    <%= form.text_field :theme %>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :brand %>
+    <%= form.text_field :brand %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Outfit" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to outfits", outfits_path %> 

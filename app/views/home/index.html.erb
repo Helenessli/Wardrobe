@@ -1,2 +1,52 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="outfits-container">
+  <h1 class="main-title">OUTFITS BY</h1>
+  <h2 class="theme-title">THEME</h2>
+
+  <div class="theme-section">
+    <h3 class="section-label">FOR</h3>
+    <h3 class="theme-name">SUMMER</h3>
+    <div class="outfits-grid">
+      <%= link_to outfits_path(theme: "summer") do %>
+        <% Outfit.where(theme: "summer").limit(3).each do |outfit| %>
+          <div class="outfit-card">
+            <% if outfit.images.attached? && outfit.images.first.present? %>
+              <%= image_tag outfit.images.first %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="theme-section">
+    <h3 class="section-label">FOR</h3>
+    <h3 class="theme-name">STREETWEAR</h3>
+    <div class="outfits-grid">
+      <%= link_to outfits_path(theme: "streetwear") do %>
+        <% Outfit.where(theme: "streetwear").limit(3).each do |outfit| %>
+          <div class="outfit-card">
+            <% if outfit.images.attached? && outfit.images.first.present? %>
+              <%= image_tag outfit.images.first %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="theme-section">
+    <h3 class="section-label">AND...</h3>
+    <h3 class="theme-name">SPECIAL OCCASIONS</h3>
+    <div class="outfits-grid">
+      <%= link_to outfits_path(theme: "special occasions") do %>
+        <% Outfit.where(theme: "special occasions").limit(3).each do |outfit| %>
+          <div class="outfit-card">
+            <% if outfit.images.attached? && outfit.images.first.present? %>
+              <%= image_tag outfit.images.first %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

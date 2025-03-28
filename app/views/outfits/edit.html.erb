@@ -1,0 +1,76 @@
+<h1>Edit Outfit: <%= @outfit.theme %></h1>
+
+<%= form_with(model: @outfit, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :theme %>
+    <%= form.text_field :theme %>
+  </div>
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <div data-controller="items">
+    <h3>Add New Items</h3>
+    
+    <template data-items-target="template">
+      <%= form.fields_for :items, Item.new, child_index: "NEW_RECORD" do |item_form| %>
+        <div class="item-field-set">
+          <div class="field">
+            <%= item_form.label :name %>
+            <%= item_form.text_field :name %>
+          </div>
+
+          <div class="field">
+            <%= item_form.label :brand %>
+            <%= item_form.text_field :brand %>
+          </div>
+
+          <div class="field">
+            <%= item_form.label :link %>
+            <%= item_form.text_field :link %>
+          </div>
+
+          <button type="button" data-action="items#remove" class="remove-button">
+            Remove Item
+          </button>
+        </div>
+      <% end %>
+    </template>
+
+    <div data-items-target="container">
+      <%= form.fields_for :items do |item_form| %>
+        <div class="item-field-set">
+          <div class="field">
+            <%= item_form.label :name %>
+            <%= item_form.text_field :name %>
+          </div>
+
+          <div class="field">
+            <%= item_form.label :brand %>
+            <%= item_form.text_field :brand %>
+          </div>
+
+          <div class="field">
+            <%= item_form.label :link %>
+            <%= item_form.text_field :link %>
+          </div>
+
+          <button type="button" data-action="items#remove" class="remove-button">
+            Remove Item
+          </button>
+        </div>
+      <% end %>
+    </div>
+
+    <button type="button" data-action="items#add" class="add-button">
+      Add Another Item
+    </button>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update Outfit", class: "update-button" %>
+    <%= link_to "Cancel", outfit_path(@outfit), class: "cancel-button" %>
+  </div>
+<% end %> 

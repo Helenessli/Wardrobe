@@ -30,6 +30,7 @@
 
   <div class="actions">
     <%= link_to "Back to all outfits", outfits_path, class: "back-button" %>
+    <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "edit-button" %>
     <%= button_to "Delete Outfit", 
                   outfit_path(@outfit), 
                   method: :delete,

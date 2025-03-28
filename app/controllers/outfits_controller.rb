@@ -1,7 +1,6 @@
 class OutfitsController < ApplicationController
   def index
     @outfits = Outfit.all
-    puts "Number of outfits: #{@outfits.count}" # Add this for debugging
   end
 
   def show
@@ -10,20 +9,20 @@ class OutfitsController < ApplicationController
 
   def new
     @outfit = Outfit.new
-    @outfit.items.build # Start with one empty item
+    @outfit.items.build # start with one empty item
   end
 
   def create
     @outfit = Outfit.new(outfit_params)
     
     if @outfit.save
-      redirect_to @outfit, notice: 'Outfit was successfully created.'
+      redirect_to @outfit
     end
   end
 
   def destroy
     @outfit = Outfit.find(params[:id])
-    @outfit.image.purge # removes the attached image from storage
+    @outfit.image.purge
     @outfit.destroy
     redirect_to outfits_path, notice: 'Outfit was successfully deleted.'
   end

@@ -1,8 +1,8 @@
 <h1>All Outfits</h1>
 
-<div class="outfits-grid">
+<div>
   <% @outfits.each do |outfit| %>
-    <div class="outfit-card">
+    <div>
       <%= link_to outfit_path(outfit) do %>
         <% if outfit.images.attached? && outfit.images.first.present? %>
           <%= image_tag outfit.images.first %>

@@ -1,17 +1,17 @@
 <h1>Add New Outfit</h1>
 
 <%= form_with(model: @outfit, local: true) do |form| %>
-  <div class="field">
+  <div>
     <%= form.label :number %>
     <%= form.number_field :number %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :theme %>
     <%= form.text_field :theme %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :images %>
     <%= form.file_field :images, multiple: true %>
   </div>
@@ -21,23 +21,23 @@
     
     <template data-items-target="template">
       <%= form.fields_for :items, Item.new, child_index: "NEW_RECORD" do |item_form| %>
-        <div class="item-field-set">
-          <div class="field">
+        <div>
+          <div>
             <%= item_form.label :name %>
             <%= item_form.text_field :name %>
           </div>
 
-          <div class="field">
+          <div>
             <%= item_form.label :brand %>
             <%= item_form.text_field :brand %>
           </div>
 
-          <div class="field">
+          <div>
             <%= item_form.label :link %>
             <%= item_form.text_field :link %>
           </div>
 
-          <button type="button" data-action="items#remove" class="remove-button">
+          <button type="button" data-action="items#remove">
             Remove Item
           </button>
         </div>
@@ -46,35 +46,35 @@
 
     <div data-items-target="container">
       <%= form.fields_for :items do |item_form| %>
-        <div class="item-field-set">
-          <div class="field">
+        <div>
+          <div>
             <%= item_form.label :name %>
             <%= item_form.text_field :name %>
           </div>
 
-          <div class="field">
+          <div>
             <%= item_form.label :brand %>
             <%= item_form.text_field :brand %>
           </div>
 
-          <div class="field">
+          <div>
             <%= item_form.label :link %>
             <%= item_form.text_field :link %>
           </div>
 
-          <button type="button" data-action="items#remove" class="remove-button">
+          <button type="button" data-action="items#remove">
             Remove Item
           </button>
         </div>
       <% end %>
     </div>
 
-    <button type="button" data-action="items#add" class="add-button">
+    <button type="button" data-action="items#add">
       Add Another Item
     </button>
   </div>
 
-  <div class="actions">
+  <div>
     <%= form.submit "Create Outfit" %>
   </div>
 <% end %>

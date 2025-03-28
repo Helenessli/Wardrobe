@@ -1,6 +1,7 @@
 class OutfitsController < ApplicationController
   def index
     @outfits = Outfit.all
+    puts "Number of outfits: #{@outfits.count}" # Add this for debugging
   end
 
   def show
@@ -9,6 +10,7 @@ class OutfitsController < ApplicationController
 
   def new
     @outfit = Outfit.new
+    @outfit.items.build # Start with one empty item
   end
 
   def create
@@ -29,6 +31,12 @@ class OutfitsController < ApplicationController
   private
 
   def outfit_params
-    params.require(:outfit).permit(:theme, :brand, images: [])
+    # Add items_attributes to permitted params
+    params.require(:outfit).permit(
+      :theme, 
+      :number, 
+      images: [], 
+      items_attributes: [:name, :brand, :link]
+    )
   end
 end

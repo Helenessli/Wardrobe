@@ -1,17 +1,19 @@
-Outfit.destroy_all
+OutfitItem.destroy_all
+Outfit.destroy_all     
+Item.destroy_all
 
 outfits_data = [
-  { number: 1, theme: "summer", brand: "Lewkin", images: ["1.png"] },
-  { number: 2, theme: "streetwear", brand: "Lewkin", images: ["2.png"] },
-  { number: 3, theme: "streetwear", brand: "Lewkin", images: ["3.png"] },
-  { number: 4, theme: "summer", brand: "Lewkin", images: ["4.png", "15.png"] }  # This outfit will have two images
+  { number: 1, theme: "summer", images: ["1.png"] },
+  { number: 2, theme: "streetwear", images: ["2.png"] },
+  { number: 3, theme: "streetwear", images: ["3.png"] },
+  { number: 4, theme: "summer", images: ["4.png", "15.png"] }  # This outfit will have two images
 ]
 
 outfits_data.each do |outfit_data|
   
   outfit = Outfit.create!(
     theme: outfit_data[:theme],
-    brand: outfit_data[:brand]
+    number: outfit_data[:number]
   )
   
   # Attach images
@@ -25,12 +27,36 @@ outfits_data.each do |outfit_data|
           filename: image_name,
           content_type: 'image/png'
         )
-        puts "Successfully attached image #{image_name}"
-      else
-        puts "Warning: Image #{image_name} not found in seed_images directory"
       end
-    rescue => e
-      puts "Error attaching image #{image_name}: #{e.message}"
     end
+  end
+end
+
+# Create some items
+items_data = [
+  { number: 1, brand: "Lewkin", name: "Layered Long-Sleeve Crop Tank Top", link: "https://ca.lewkin.com/collections/bestsellers/products/layered-long-sleeve-crop-tank-top-set-cm513" },
+  { number: 2, brand: "Lewkin", name: "Lace Shirred Handkerchief Mini Skirt", link: "https://ca.lewkin.com/products/lace-shirred-handkerchief-mini-skirt-cm513" },
+  { number: 3, brand: "Lewkin", name: "dress test", link: "https://ca.lewkin.com/products/lace-shirred-handkerchief-mini-skirt-cm513" },
+  { number: 4, brand: "Lewkin", name: "dress test 2", link: "https://ca.lewkin.com/products/lace-shirred-handkerchief-mini-skirt-cm513" },
+]
+
+items_data.each do |item_data|
+  Item.create!(item_data)
+end
+
+# Define associations in an array: [outfit_number, [item_numbers]]
+outfit_item_associations = [
+  [4, [1, 2]],  # Outfit 4 gets items 1 and 2
+  [1, [3]],     # Outfit 1 gets item 3
+  [2, [4]]      # Outfit 2 gets item 4
+]
+
+outfit_item_associations.each do |outfit_number, item_numbers|
+  outfit = Outfit.find_by(number: outfit_number)
+  item_numbers.each do |item_number|
+    OutfitItem.create!(
+      outfit: outfit,
+      item: Item.find_by(number: item_number)
+    )
   end
 end

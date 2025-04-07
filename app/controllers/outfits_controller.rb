@@ -1,6 +1,10 @@
 class OutfitsController < ApplicationController
   def index
-    @outfits = Outfit.all
+    if params[:theme].present?
+      @outfits = Outfit.where("lower(theme) = ?", params[:theme].downcase)
+    else
+      @outfits = Outfit.all
+    end
   end
 
   def show

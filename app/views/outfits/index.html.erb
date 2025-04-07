@@ -1,5 +1,29 @@
 <div class="container">
   <h1>All Outfits</h1>
+  
+  <div class="filter-bar mb-4">
+    <ul class="nav nav-pills justify-content-center">
+      <li class="nav-item">
+        <%= link_to "All", outfits_path, class: "nav-link #{'active' if !params[:theme]}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Summer", outfits_path(theme: "summer"), class: "nav-link #{'active' if params[:theme] == 'summer'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Streetwear", outfits_path(theme: "streetwear"), class: "nav-link #{'active' if params[:theme] == 'streetwear'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Casual", outfits_path(theme: "casual"), class: "nav-link #{'active' if params[:theme] == 'casual'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Formal", outfits_path(theme: "formal"), class: "nav-link #{'active' if params[:theme] == 'formal'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Party & Event", outfits_path(theme: "party & event"), class: "nav-link #{'active' if params[:theme] == 'party & event'}" %>
+      </li>
+    </ul>
+  </div>
+
   <div class="row g-4">
     <% @outfits.each do |outfit| %>
       <div class="col-md-4 col-sm-6">

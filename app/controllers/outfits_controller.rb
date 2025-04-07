@@ -14,6 +14,7 @@ class OutfitsController < ApplicationController
 
   def create
     @outfit = Outfit.new(outfit_params)
+    @outfit.number = next_outfit_number
     
     if @outfit.save
       redirect_to @outfit
@@ -27,15 +28,46 @@ class OutfitsController < ApplicationController
     redirect_to outfits_path, notice: 'Outfit was successfully deleted.'
   end
 
+  def delete_image
+    @outfit = Outfit.find(params[:id])
+    image = @outfit.images.find(params[:image_id])
+    image.purge
+    redirect_to edit_outfit_path(@outfit), notice: 'Photo was successfully removed.'
+  end
+
+  def update
+    puts "Update action started"  # Debug line
+    @outfit = Outfit.find(params[:id])
+    puts "Outfit found: #{@outfit.inspect}"  # Debug line
+    puts "Params received: #{params.inspect}"  # Debug line
+    
+    if @outfit.update(outfit_params)
+      puts "Update successful"  # Debug line
+      if params[:outfit][:images].present?
+        @outfit.images.attach(params[:outfit][:images])
+      end
+      redirect_to @outfit, notice: 'Outfit was successfully updated.'
+    else
+      puts "Update failed: #{@outfit.errors.full_messages}"  # Debug line
+      render :edit
+    end
+  end
+
+  def edit
+    @outfit = Outfit.find(params[:id])
+  end
+
   private
 
+  def next_outfit_number
+    (Outfit.maximum(:number) || 0) + 1
+  end
+
   def outfit_params
-    # Add items_attributes to permitted params
     params.require(:outfit).permit(
-      :theme, 
-      :number, 
-      images: [], 
-      items_attributes: [:name, :brand, :link]
+      :theme,
+      images: [],
+      items_attributes: [:id, :name, :brand, :link, :_destroy]
     )
   end
 end

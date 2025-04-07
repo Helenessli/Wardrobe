@@ -1,76 +1,58 @@
 <h1>Edit Outfit: <%= @outfit.theme %></h1>
 
 <%= form_with(model: @outfit, local: true) do |form| %>
-  <div class="field">
+  <div>
     <%= form.label :theme %>
     <%= form.text_field :theme %>
   </div>
 
-  <div class="field">
+  <% if @outfit.images.attached? %>
+    <div>
+      <h3>Current Photos</h3>
+      <div class="row g-4">
+        <% @outfit.images.each do |image| %>
+          <div class="col-md-4">
+            <%= image_tag image, class: "img-fluid rounded outfit-image" %>
+            <%= button_to "Remove Photo", delete_image_outfit_path(@outfit, image_id: image.id),
+                method: :delete,
+                class: "btn btn-danger mt-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
     <%= form.label :images %>
     <%= form.file_field :images, multiple: true %>
   </div>
 
-  <div data-controller="items">
-    <h3>Add New Items</h3>
+  <div>
+    <h3>Items</h3>
     
-    <template data-items-target="template">
-      <%= form.fields_for :items, Item.new, child_index: "NEW_RECORD" do |item_form| %>
-        <div class="item-field-set">
-          <div class="field">
-            <%= item_form.label :name %>
-            <%= item_form.text_field :name %>
-          </div>
-
-          <div class="field">
-            <%= item_form.label :brand %>
-            <%= item_form.text_field :brand %>
-          </div>
-
-          <div class="field">
-            <%= item_form.label :link %>
-            <%= item_form.text_field :link %>
-          </div>
-
-          <button type="button" data-action="items#remove" class="remove-button">
-            Remove Item
-          </button>
+    <%= form.fields_for :items do |item_form| %>
+      <div>
+        <div>
+          <%= item_form.label :name %>
+          <%= item_form.text_field :name %>
         </div>
-      <% end %>
-    </template>
 
-    <div data-items-target="container">
-      <%= form.fields_for :items do |item_form| %>
-        <div class="item-field-set">
-          <div class="field">
-            <%= item_form.label :name %>
-            <%= item_form.text_field :name %>
-          </div>
-
-          <div class="field">
-            <%= item_form.label :brand %>
-            <%= item_form.text_field :brand %>
-          </div>
-
-          <div class="field">
-            <%= item_form.label :link %>
-            <%= item_form.text_field :link %>
-          </div>
-
-          <button type="button" data-action="items#remove" class="remove-button">
-            Remove Item
-          </button>
+        <div>
+          <%= item_form.label :brand %>
+          <%= item_form.text_field :brand %>
         </div>
-      <% end %>
-    </div>
 
-    <button type="button" data-action="items#add" class="add-button">
-      Add Another Item
-    </button>
+        <div>
+          <%= item_form.label :link %>
+          <%= item_form.text_field :link %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Update Outfit", class: "update-button" %>
-    <%= link_to "Cancel", outfit_path(@outfit), class: "cancel-button" %>
+  <div>
+    <%= form.submit "Update Outfit" %>
   </div>
-<% end %> 
+<% end %>
+
+<%= link_to "Back to outfits", outfits_path %> 

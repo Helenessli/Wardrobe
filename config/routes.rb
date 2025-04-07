@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get "outfits/index"
   get "outfits/show"
   root 'home#index'
-  resources :outfits
+  resources :outfits do
+    member do
+      delete :delete_image
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

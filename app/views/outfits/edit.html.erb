@@ -1,6 +1,6 @@
-<h1>Edit Outfit: <%= @outfit.theme %></h1>
+<h1>Edit Outfit</h1>
 
-<%= form_with(model: @outfit, local: true) do |form| %>
+<%= form_with(model: @outfit, local: true, data: { turbo: false }) do |form| %>
   <div>
     <%= form.label :theme %>
     <%= form.text_field :theme %>

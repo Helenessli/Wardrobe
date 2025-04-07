@@ -16,62 +16,27 @@
     <%= form.file_field :images, multiple: true %>
   </div>
 
-  <div data-controller="items">
+  <div>
     <h3>Items</h3>
     
-    <template data-items-target="template">
-      <%= form.fields_for :items, Item.new, child_index: "NEW_RECORD" do |item_form| %>
+    <%= form.fields_for :items do |item_form| %>
+      <div>
         <div>
-          <div>
-            <%= item_form.label :name %>
-            <%= item_form.text_field :name %>
-          </div>
-
-          <div>
-            <%= item_form.label :brand %>
-            <%= item_form.text_field :brand %>
-          </div>
-
-          <div>
-            <%= item_form.label :link %>
-            <%= item_form.text_field :link %>
-          </div>
-
-          <button type="button" data-action="items#remove">
-            Remove Item
-          </button>
+          <%= item_form.label :name %>
+          <%= item_form.text_field :name %>
         </div>
-      <% end %>
-    </template>
 
-    <div data-items-target="container">
-      <%= form.fields_for :items do |item_form| %>
         <div>
-          <div>
-            <%= item_form.label :name %>
-            <%= item_form.text_field :name %>
-          </div>
-
-          <div>
-            <%= item_form.label :brand %>
-            <%= item_form.text_field :brand %>
-          </div>
-
-          <div>
-            <%= item_form.label :link %>
-            <%= item_form.text_field :link %>
-          </div>
-
-          <button type="button" data-action="items#remove">
-            Remove Item
-          </button>
+          <%= item_form.label :brand %>
+          <%= item_form.text_field :brand %>
         </div>
-      <% end %>
-    </div>
 
-    <button type="button" data-action="items#add">
-      Add Another Item
-    </button>
+        <div>
+          <%= item_form.label :link %>
+          <%= item_form.text_field :link %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div>

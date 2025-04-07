@@ -9,7 +9,7 @@ class OutfitsController < ApplicationController
 
   def new
     @outfit = Outfit.new
-    @outfit.items.build # start with one empty item
+    4.times { @outfit.items.build }
   end
 
   def create
@@ -22,7 +22,7 @@ class OutfitsController < ApplicationController
 
   def destroy
     @outfit = Outfit.find(params[:id])
-    @outfit.image.purge
+    @outfit.images.purge
     @outfit.destroy
     redirect_to outfits_path, notice: 'Outfit was successfully deleted.'
   end

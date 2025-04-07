@@ -4,7 +4,9 @@
   <div>
     <% if @outfit.images.attached? %>
       <% @outfit.images.each do |image| %>
-        <%= image_tag image %>
+        <div class="col-md-4">
+          <%= image_tag image, class: "img-fluid rounded" %>
+        </div>
       <% end %>
     <% end %>
   </div>

@@ -1,51 +1,51 @@
-<div>
+<div class="container">
   <h1>OUTFITS BY</h1>
   <h2>THEME</h2>
 
-  <div>
+  <div class="mb-5">
     <h3>FOR</h3>
     <h3>SUMMER</h3>
-    <div>
-      <%= link_to outfits_path(theme: "summer") do %>
-        <% Outfit.where(theme: "summer").limit(3).each do |outfit| %>
-          <div>
+    <div class="row g-4">
+      <% Outfit.where(theme: "summer").limit(3).each do |outfit| %>
+        <div class="col-md-4">
+          <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first %>
+              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
 
-  <div>
+  <div class="mb-5">
     <h3>FOR</h3>
     <h3>STREETWEAR</h3>
-    <div>
-      <%= link_to outfits_path(theme: "streetwear") do %>
-        <% Outfit.where(theme: "streetwear").limit(3).each do |outfit| %>
-          <div>
+    <div class="row g-4">
+      <% Outfit.where(theme: "streetwear").limit(3).each do |outfit| %>
+        <div class="col-md-4">
+          <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first %>
+              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
 
-  <div>
+  <div class="mb-5">
     <h3>AND...</h3>
     <h3>SPECIAL OCCASIONS</h3>
-    <div>
-      <%= link_to outfits_path(theme: "special occasions") do %>
-        <% Outfit.where(theme: "special occasions").limit(3).each do |outfit| %>
-          <div>
+    <div class="row g-4">
+      <% Outfit.where(theme: "special occasions").limit(3).each do |outfit| %>
+        <div class="col-md-4">
+          <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first %>
+              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>

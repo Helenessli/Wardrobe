@@ -1,14 +1,14 @@
-<h1>All Outfits</h1>
-
-<div>
-  <% @outfits.each do |outfit| %>
-    <div>
-      <%= link_to outfit_path(outfit) do %>
-        <% if outfit.images.attached? && outfit.images.first.present? %>
-          <%= image_tag outfit.images.first %>
+<div class="container">
+  <h1>All Outfits</h1>
+  <div class="row g-4">
+    <% @outfits.each do |outfit| %>
+      <div class="col-md-4 col-sm-6">
+        <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
+          <% if outfit.images.attached? && outfit.images.first.present? %>
+            <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
+          <% end %>
         <% end %>
-        <h3><%= outfit.theme %></h3>
-      <% end %>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

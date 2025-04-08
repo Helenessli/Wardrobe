@@ -1,9 +1,15 @@
 class OutfitsController < ApplicationController
   def index
-    if params[:theme].present?
-      @outfits = Outfit.where("lower(theme) = ?", params[:theme].downcase)
+    @outfits = if params[:query].present?
+      Outfit.joins(:items)
+            .where("lower(items.brand) LIKE ? OR lower(items.name) LIKE ?", 
+                  "%#{params[:query].downcase}%",
+                  "%#{params[:query].downcase}%")
+            .distinct
+    elsif params[:theme].present?
+      Outfit.where("lower(theme) = ?", params[:theme].downcase)
     else
-      @outfits = Outfit.all
+      Outfit.all
     end
   end
 

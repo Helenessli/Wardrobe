@@ -1,17 +1,64 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg mt-4 ml-4">
   <div class="container-fluid">
-    <div class="navbar-nav me-auto">
-      <%= link_to "Home", root_path, class: "nav-link" %>
-      <%= link_to "Outfits", outfits_path, class: "nav-link" %>
-      <%= link_to "Add Outfit", new_outfit_path, class: "nav-link" %>
+    <%= link_to "HELEN'S<br>WARDROBE".html_safe, root_path, class: "navbar-brand logo-box" %> 
+
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+      <ul class="navbar-nav mb-2 mb-lg-0 ml-4"> 
+        <li class="nav-item px-2">
+          <%= link_to "HOME", root_path, class: "nav-link text-uppercase #{'active' if current_page?(root_path)}" %>
+        </li>
+        <li class="nav-item px-2">
+          <%= link_to "OUTFITS", outfits_path, class: "nav-link text-uppercase #{'active' if current_page?(outfits_path)}" %>
+        </li>
+        <li class="nav-item px-2">
+          <%= link_to "ADD", new_outfit_path, class: "nav-link text-uppercase #{'active' if current_page?(new_outfit_path)}" %>
+        </li>
+      </ul>
+
+      <%= form_with url: outfits_path, method: :get, class: "d-flex" do |f| %>
+        <%= f.text_field :query, 
+            class: "form-control me-2", 
+            placeholder: "Search...",
+            value: params[:query] %>
+        <%= f.submit "SEARCH", class: "btn btn-outline-secondary text-uppercase" %> 
+      <% end %>
     </div>
-    
-    <%= form_with url: outfits_path, method: :get, class: "d-flex" do |f| %>
-      <%= f.text_field :query, 
-          class: "form-control me-2", 
-          placeholder: "Search items or brands...",
-          value: params[:query] %>
-      <%= f.submit "Search", class: "btn btn-outline-success" %>
-    <% end %>
   </div>
 </nav>
+
+<style>
+  .logo-box {
+    border: 2px solid; 
+    padding: 33px 15px; 
+    text-align: center;
+    /* Add font styles here */
+  }
+
+  .nav-link.active {
+    text-decoration: underline; /* Example underline for active link */
+    /* Override default Bootstrap active styles if needed */
+    background-color: transparent !important; 
+    color: inherit !important; /* Use parent color */
+  }
+
+  /* Add custom font styles for navbar elements */
+  .navbar {
+    /* font-family: 'YourSerifFont', serif; */ /* Example font */
+  }
+
+  /* Make navbar brand link black */
+  .navbar-brand,
+  .navbar-brand:hover {
+    color: black !important; 
+  }
+
+  /* Make nav links black */
+  .nav-link {
+    color: black !important; 
+  }
+
+  /* Keep nav links black on hover (unless it's the active one being underlined) */
+  .nav-link:not(.active):hover {
+     color: black !important; 
+  }
+</style> 

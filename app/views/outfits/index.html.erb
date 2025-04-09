@@ -1,8 +1,6 @@
 <div class="container">
-  <h1>All Outfits</h1>
-  
   <div class="filter-bar mb-4">
-    <ul class="nav nav-pills justify-content-center">
+    <ul class="nav nav-pills justify-content-start">
       <li class="nav-item">
         <%= link_to "All", outfits_path, class: "nav-link #{'active' if !params[:theme]}" %>
       </li>
@@ -26,13 +24,32 @@
 
   <div class="row g-4">
     <% @outfits.each do |outfit| %>
-      <div class="col-md-4 col-sm-6">
+      <div class="col-md-4 col-sm-6 my-3">
         <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
           <% if outfit.images.attached? && outfit.images.first.present? %>
-            <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
+            <div class="position-relative image-container">
+              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image", style: "box-shadow: 8px 8px 12px rgba(0,0,0,0.3); background-color: white;" %>
+            </div>
           <% end %>
         <% end %>
       </div>
     <% end %>
   </div>
 </div>
+
+<style>
+  .image-container {
+    width: 300px;
+    height: 400px;
+    position: relative;
+  }
+
+  .outfit-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+  }
+</style>

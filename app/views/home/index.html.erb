@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="d-flex justify-content-center position-relative w-100 mb-2" style="height: 5rem;">
+  <div class="d-flex justify-content-center position-relative w-100" style="height: 5rem; margin-bottom: 5.5rem;">
     <h2 class="text-uppercase mb-1 position-absolute start-50 translate-middle-x" style="transform: translateX(-30%);">
       OUTFITS BY
     </h2>
@@ -16,15 +16,19 @@
     </h1>
   </div>
 
-  <div class="mb-5">
-    <h3>FOR</h3>
-    <h3>SUMMER</h3>
-    <div class="row g-4">
+  <div class="mb-5 p-4 mt-3" style="margin-left: -13%; margin-right: -13%; border: 2px solid black;">
+    <div class="ms-4">
+      <h5 class="text-uppercase mb-0 fs-5">FOR</h5>
+      <h3 class="text-uppercase display-6 mb-4 ml-4">SUMMER</h3>
+    </div>
+    <div class="row justify-content-between align-items-center px-5">
       <% Outfit.where(theme: "summer").limit(3).each do |outfit| %>
-        <div class="col-md-4">
+        <div class="col-md-3 my-3">
           <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
+              <div class="position-relative">
+                <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image", style: "box-shadow: 8px 8px 12px rgba(0,0,0,0.3);" %>
+              </div>
             <% end %>
           <% end %>
         </div>
@@ -32,15 +36,19 @@
     </div>
   </div>
 
-  <div class="mb-5">
-    <h3>FOR</h3>
-    <h3>STREETWEAR</h3>
-    <div class="row g-4">
+  <div class="mb-5 p-4 mt-3" style="margin-left: -13%; margin-right: -13%; border: 2px solid black;">
+    <div class="ms-4">
+      <h5 class="text-uppercase mb-0 fs-5">FOR</h5>
+      <h3 class="text-uppercase display-6 mb-4 ml-4">STREETWEAR</h3>
+    </div>
+    <div class="row justify-content-between align-items-center px-5">
       <% Outfit.where(theme: "streetwear").limit(3).each do |outfit| %>
-        <div class="col-md-4">
+        <div class="col-md-3 my-3">
           <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
+              <div class="position-relative">
+                <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image", style: "box-shadow: 8px 8px 12px rgba(0,0,0,0.3);" %>
+              </div>
             <% end %>
           <% end %>
         </div>
@@ -48,19 +56,40 @@
     </div>
   </div>
 
-  <div class="mb-5">
-    <h3>AND...</h3>
-    <h3>SPECIAL OCCASIONS</h3>
-    <div class="row g-4">
+  <div class="mb-5 p-4 mt-3" style="margin-left: -13%; margin-right: -13%; border: 2px solid black;">
+    <div class="ms-4">
+      <h5 class="text-uppercase mb-0 fs-5">FOR</h5>
+      <h3 class="text-uppercase display-6 mb-4 ml-4">SPECIAL OCCASIONS</h3>
+    </div>
+    <div class="row justify-content-between align-items-center px-5">
       <% Outfit.where(theme: "special occasions").limit(3).each do |outfit| %>
-        <div class="col-md-4">
+        <div class="col-md-3 my-3">
           <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
             <% if outfit.images.attached? && outfit.images.first.present? %>
-              <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image" %>
+              <div class="position-relative">
+                <%= image_tag outfit.images.first, class: "img-fluid rounded outfit-image", style: "box-shadow: 8px 8px 12px rgba(0,0,0,0.3);" %>
+              </div>
             <% end %>
           <% end %>
         </div>
       <% end %>
     </div>
   </div>
+
+  <style>
+    .shadow-overlay {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 1px solid #ddd;
+      z-index: -1;
+    }
+
+    .outfit-image {
+      background-color: white;
+    }
+  </style>
 </div>

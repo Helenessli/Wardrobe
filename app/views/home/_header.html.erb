@@ -17,10 +17,11 @@
 
       <%= form_with url: outfits_path, method: :get, class: "d-flex" do |f| %>
         <%= f.text_field :query, 
-            class: "form-control me-2", 
+            class: "form-control me-2 rounded-pill border-0 bg-light", 
+            style: "margin-right: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
             placeholder: "Search...",
             value: params[:query] %>
-        <%= f.submit "SEARCH", class: "btn btn-outline-secondary text-uppercase" %> 
+        <%= f.submit "SEARCH", class: "text-uppercase text-black border-0 p-0", style: "background: none; cursor: pointer; margin-right: 6rem; font-size: 0.9rem;" %> 
       <% end %>
     </div>
   </div>
@@ -31,32 +32,35 @@
     border: 2px solid; 
     padding: 33px 15px; 
     text-align: center;
-    /* Add font styles here */
   }
 
   .nav-link.active {
     text-decoration: underline;
     background-color: transparent !important; 
-    color: inherit !important; /* Use parent color */
+    color: inherit !important; 
   }
 
-  .navbar {
-    /* font-family: 'YourSerifFont', serif; */ /* Example font */
-  }
-
-  /* Make navbar brand link black */
   .navbar-brand,
   .navbar-brand:hover {
     color: black !important; 
   }
 
-  /* Make nav links black */
   .nav-link {
     color: black !important; 
   }
 
-  /* Keep nav links black on hover (unless it's the active one being underlined) */
   .nav-link:not(.active):hover {
      color: black !important; 
+  }
+
+  .form-control:focus {
+    border: none;
+    box-shadow: none;
+    background-color: #f8f9fa;
+  }
+
+
+  input[type="submit"] {
+    border: none;
   }
 </style> 

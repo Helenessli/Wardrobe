@@ -6,7 +6,14 @@ outfits_data = [
   { number: 1, theme: "summer", images: ["1.png"] },
   { number: 2, theme: "streetwear", images: ["2.png"] },
   { number: 3, theme: "streetwear", images: ["3.png"] },
-  { number: 4, theme: "summer", images: ["4.png", "15.png"] }  # This outfit will have two images
+  { number: 4, theme: "summer", images: ["4.png", "13.png", "14.png", "15.png", "16.png"] },
+  { number: 5, theme: "party_and_event", images: ["5.png"] },
+  { number: 6, theme: "summer", images: ["6.png"] },
+  { number: 7, theme: "streetwear", images: ["7.png"] },
+  { number: 8, theme: "party_and_event", images: ["8.png"] },
+  { number: 9, theme: "party_and_event", images: ["9.png"] },
+  { number: 10, theme: "party_and_event", images: ["10.png"] },
+  { number: 11, theme: "party_and_event", images: ["11.png", "12.png"] },
 ]
 
 outfits_data.each do |outfit_data|
@@ -16,7 +23,6 @@ outfits_data.each do |outfit_data|
     number: outfit_data[:number]
   )
   
-  # Attach images
   outfit_data[:images].each do |image_name|
     begin
       image_path = Rails.root.join('db', 'seed_images', image_name)
@@ -32,7 +38,6 @@ outfits_data.each do |outfit_data|
   end
 end
 
-# Create some items
 items_data = [
   { number: 1, brand: "Lewkin", name: "Layered Long-Sleeve Crop Tank Top", link: "https://ca.lewkin.com/collections/bestsellers/products/layered-long-sleeve-crop-tank-top-set-cm513" },
   { number: 2, brand: "Lewkin", name: "Lace Shirred Handkerchief Mini Skirt", link: "https://ca.lewkin.com/products/lace-shirred-handkerchief-mini-skirt-cm513" },

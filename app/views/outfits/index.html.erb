@@ -24,7 +24,7 @@
 
   <div class="row g-4">
     <% @outfits.each do |outfit| %>
-      <div class="col-md-4 col-sm-6 my-3">
+      <div class="col-md-4 col-sm-6 my-4">
         <%= link_to outfit_path(outfit), class: "text-decoration-none" do %>
           <% if outfit.images.attached? && outfit.images.first.present? %>
             <div class="position-relative image-container">

@@ -77,7 +77,11 @@ class OutfitsController < ApplicationController
     params.require(:outfit).permit(
       :theme,
       images: [],
-      items_attributes: [:id, :name, :brand, :link, :_destroy]
-    )
+      items_attributes: [:id, :name, :brand, :link]
+    ).tap do |whitelisted|
+      if whitelisted[:items_attributes]
+        whitelisted[:items_attributes].reject! { |_, attrs| attrs[:name].blank? }
+      end
+    end
   end
 end

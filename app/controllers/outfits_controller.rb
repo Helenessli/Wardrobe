@@ -46,21 +46,6 @@ class OutfitsController < ApplicationController
   end
 
   def update
-    puts "Update action started"  # Debug line
-    @outfit = Outfit.find(params[:id])
-    puts "Outfit found: #{@outfit.inspect}"  # Debug line
-    puts "Params received: #{params.inspect}"  # Debug line
-    
-    if @outfit.update(outfit_params)
-      puts "Update successful"  # Debug line
-      if params[:outfit][:images].present?
-        @outfit.images.attach(params[:outfit][:images])
-      end
-      redirect_to @outfit, notice: 'Outfit was successfully updated.'
-    else
-      puts "Update failed: #{@outfit.errors.full_messages}"  # Debug line
-      render :edit
-    end
   end
 
   def edit

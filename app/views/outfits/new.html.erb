@@ -1,42 +1,75 @@
-<h1>New Outfit</h1>
+<div class="container mt-2">
+  <h1 class="mb-5">NEW OUTFIT</h1>
 
-<%= form_with(model: @outfit, local: true) do |form| %>
-  <div>
-    <%= form.label :theme %>
-    <%= form.text_field :theme %>
-  </div>
+  <%= form_with(model: @outfit, local: true) do |form| %>
+    <div class="text-center mb-5">
+      <button type="button" class="btn btn-light rounded-pill px-5 py-2" 
+              style="background-color: #e9ecef; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+              onclick="document.getElementById('outfit_images').click();">
+        UPLOAD IMAGE
+      </button>
+      <%= form.file_field :images, multiple: true, class: "d-none", id: "outfit_images" %>
+    </div>
 
-  <div>
-    <%= form.label :images %>
-    <%= form.file_field :images, multiple: true %>
-  </div>
+    <div class="row mb-5" id="image-preview">
+    </div>
 
-  <div>
-    <h3>Items</h3>
+    <div class="mb-4">
+      <%= form.label :theme, class: "form-label fs-6" %>
+      <%= form.text_field :theme, class: "form-control rounded-pill", style: "background-color: #f8f9fa; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" %>
+    </div>
+
+    <div class="mb-5">
+      <%= form.fields_for :items do |item_form| %>
+        <div class="mb-5">
+          <h2 class="mb-4">ITEM <%= item_form.index + 1 %></h2>
+          
+          <div class="row">
+            <div class="col-6">
+              <p class="mb-1 fs-6">NAME</p>
+              <%= item_form.text_field :name, class: "form-control mb-4 rounded-pill", 
+                  style: "background-color: white; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" %>
+            </div>
+            
+            <div class="col-6">
+              <p class="mb-1 fs-6">BRAND</p>
+              <%= item_form.text_field :brand, class: "form-control mb-4 rounded-pill", 
+                  style: "background-color: white; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" %>
+            </div>
+          </div>
+
+          <div class="d-none">
+            <%= item_form.text_field :link, class: "form-control" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-center mb-4">
+      <%= form.submit "Create Outfit", class: "btn btn-dark rounded-pill px-5" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.getElementById('outfit_images').addEventListener('change', function(event) {
+    const preview = document.getElementById('image-preview');
+    preview.innerHTML = '';
     
-    <%= form.fields_for :items do |item_form| %>
-      <div>
-        <div>
-          <%= item_form.label :name %>
-          <%= item_form.text_field :name %>
-        </div>
-
-        <div>
-          <%= item_form.label :brand %>
-          <%= item_form.text_field :brand %>
-        </div>
-
-        <div>
-          <%= item_form.label :link %>
-          <%= item_form.text_field :link %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div>
-    <%= form.submit "Create Outfit" %>
-  </div>
-<% end %>
-
-<%= link_to "Back to outfits", outfits_path %> 
+    Array.from(event.target.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const div = document.createElement('div');
+        div.className = 'col-3 mb-4';
+        div.innerHTML = `
+          <div style="width: 200px; height: 300px; position: relative;">
+            <img src="${e.target.result}" class="rounded" 
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          </div>
+        `;
+        preview.appendChild(div);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+</script>

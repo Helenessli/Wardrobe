@@ -19,7 +19,7 @@ class OutfitsController < ApplicationController
 
   def new
     @outfit = Outfit.new
-    4.times { @outfit.items.build }
+    @outfit.items.build  # Just build one item initially
   end
 
   def create

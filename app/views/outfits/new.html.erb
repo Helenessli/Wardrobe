@@ -36,38 +36,53 @@
       %>
     </div>
 
-    <div class="mb-5">
-      <%= form.fields_for :items do |item_form| %>
-        <div class="mb-4">
-          <h3 class="mb-4">ITEM <%= item_form.index + 1 %></h3>
-          
-          <div class="row">
-            <div class="col-6">
-              <p class="mb-2 fs-6">NAME</p>
-              <%= item_form.text_field :name, class: "form-control mb-4 rounded-pill", 
-                  style: "background-color: white; 
-                          border: none; 
-                          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                          padding: 0.8rem 1rem;
-                          height: 3rem;" %>
+    <div class="mb-5" id="items-container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>ITEMS</h3>
+        <button type="button" class="btn btn-outline-dark rounded-pill" onclick="addItem()">
+          Add Item +
+        </button>
+      </div>
+
+      <div id="items-fields">
+        <!-- Initial item form -->
+        <%= form.fields_for :items do |item_form| %>
+          <div class="item-form mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="mb-4">ITEM <%= item_form.index + 1 %></h3>
+              <button type="button" class="btn btn-outline-danger rounded-pill" onclick="removeItem(this)">
+                Remove
+              </button>
             </div>
             
-            <div class="col-6">
-              <p class="mb-2 fs-6">BRAND</p>
-              <%= item_form.text_field :brand, class: "form-control mb-4 rounded-pill", 
-                  style: "background-color: white; 
-                          border: none; 
-                          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                          padding: 0.8rem 1rem;
-                          height: 3rem;" %>
+            <div class="row">
+              <div class="col-6">
+                <p class="mb-2 fs-6">NAME</p>
+                <%= item_form.text_field :name, class: "form-control mb-4 rounded-pill", 
+                    style: "background-color: white; 
+                            border: none; 
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            padding: 0.8rem 1rem;
+                            height: 3rem;" %>
+              </div>
+              
+              <div class="col-6">
+                <p class="mb-2 fs-6">BRAND</p>
+                <%= item_form.text_field :brand, class: "form-control mb-4 rounded-pill", 
+                    style: "background-color: white; 
+                            border: none; 
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            padding: 0.8rem 1rem;
+                            height: 3rem;" %>
+              </div>
+            </div>
+
+            <div class="d-none">
+              <%= item_form.text_field :link, class: "form-control" %>
             </div>
           </div>
-
-          <div class="d-none">
-            <%= item_form.text_field :link, class: "form-control" %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
     <div class="text-center mb-4">
@@ -97,4 +112,57 @@
       reader.readAsDataURL(file);
     });
   });
+
+  let itemIndex = <%= @outfit.items.size %>;
+
+  function addItem() {
+    itemIndex++;
+    const container = document.getElementById('items-fields');
+    
+    const newItem = `
+      <div class="item-form mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="mb-4">ITEM ${itemIndex}</h3>
+          <button type="button" class="btn btn-outline-danger rounded-pill" onclick="removeItem(this)">
+            Remove
+          </button>
+        </div>
+        
+        <div class="row">
+          <div class="col-6">
+            <p class="mb-2 fs-6">NAME</p>
+            <input type="text" 
+                   name="outfit[items_attributes][${itemIndex-1}][name]" 
+                   class="form-control mb-4 rounded-pill" 
+                   style="background-color: white; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 0.8rem 1rem; height: 3rem;">
+          </div>
+          
+          <div class="col-6">
+            <p class="mb-2 fs-6">BRAND</p>
+            <input type="text" 
+                   name="outfit[items_attributes][${itemIndex-1}][brand]" 
+                   class="form-control mb-4 rounded-pill" 
+                   style="background-color: white; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 0.8rem 1rem; height: 3rem;">
+          </div>
+        </div>
+
+        <div class="d-none">
+          <input type="text" 
+                 name="outfit[items_attributes][${itemIndex-1}][link]" 
+                 class="form-control">
+        </div>
+      </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', newItem);
+  }
+
+  function removeItem(button) {
+    const itemForm = button.closest('.item-form');
+    if (document.querySelectorAll('.item-form').length > 1) {
+      itemForm.remove();
+    } else {
+      alert('You must have at least one item!');
+    }
+  }
 </script>

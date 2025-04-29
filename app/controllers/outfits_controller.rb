@@ -46,6 +46,19 @@ class OutfitsController < ApplicationController
   end
 
   def update
+    @outfit = Outfit.find(params[:id])
+    
+    # Delete existing images and attach new ones if present
+    if params[:outfit][:images].present?
+      @outfit.images.purge
+      @outfit.images.attach(params[:outfit][:images])
+    end
+    
+    if @outfit.update(outfit_params.except(:images))
+      redirect_to @outfit, notice: 'Outfit was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def edit
